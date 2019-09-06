@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "code": "invalid_paremeter_username",
+      "developerMessage": "The username parameter is not valid (too short)",
+      "errorMessage": "The username is too short, please provide something longer"
+    }
+  ],
+  "message": "Bad Request",
+  "status": 400,
+  "timestamp": "1231"
+}
