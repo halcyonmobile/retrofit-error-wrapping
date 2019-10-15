@@ -8,7 +8,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
-project.ext.set("libraryArtifactId", "retrofit-error-parsing")
 sourceCompatibility = "7"
 targetCompatibility = "7"
 buildscript {
@@ -46,4 +45,5 @@ dependencies {
     }
 }
 
-apply from: "../deploy.gradle"
+project.ext.set("libraryArtifactId", "retrofit-error-parsing")
+apply plugin: 'com.halcyonmobile.plugin.publish.artifactory.jar-library'

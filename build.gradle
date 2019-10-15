@@ -5,7 +5,14 @@ buildscript {
     repositories {
         google()
         jcenter()
-
+        maven {
+            mavenLocal()
+            url "https://artifactory.build.halcyonmobile.com/artifactory/plugins-release-local"
+            credentials {
+                username = "${artifactory_username}"
+                password = "${artifactory_password}"
+            }
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
@@ -15,6 +22,7 @@ buildscript {
 
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.7.3"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.halcyonmobile.publish.artifactory:java:0.1.0.1'
     }
 }
 
@@ -32,10 +40,8 @@ allprojects {
     }
 }
 
-ext {
-    libraryVersion = '0.1.0.1'
-}
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+apply from: "./deploy.gradle"

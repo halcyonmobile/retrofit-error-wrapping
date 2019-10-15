@@ -1,53 +1,10 @@
 // RELEASING
-// # 1:             open terminal and run the following commands
-// # 2:             ./gradlew clean
-// # 3:             ./gradlew assemble generatePomFileForMavenJavaPublication
-// # 4 artifactory: ./gradlew artifactoryPublish
+// # 0:              update the libraryVersion
+// # 1:              open terminal and run the following commands
+// # 2 artifactory:  ./gradlew publishToArtifactory
+// # 2 bintray:      ./gradlew publishToBintray
+// # 3 bintray: make sure you add the published library to jcenter on the site
 
-// #2: increment the libraryVersion in the project build.gradle
-apply plugin: 'com.github.dcendents.android-maven'
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    classifier = 'sources'
-}
-
-task javadocJar(type: Jar) {
-    from javadoc
-    classifier = 'javadoc'
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-
-            groupId 'com.halcyonmobile.retrofit-error-parsing'
-            version libraryVersion
-            artifactId libraryArtifactId
-
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
-}
-
-artifactory {
-    contextUrl = 'https://artifactory.build.halcyonmobile.com/artifactory'
-    publish {
-        contextUrl = 'https://artifactory.build.halcyonmobile.com/artifactory'
-        repository {
-            repoKey = 'libs-release-local'
-            username = artifactory_username
-            password = artifactory_password
-            maven = true
-        }
-
-        defaults {
-            publications('mavenJava')
-            publishArtifacts = true
-
-            properties = ['qa.level': 'basic', 'q.os': 'android', 'dev.team': 'core']
-        }
-    }
-}
+ext.libraryGroupId = 'oauth-setup'
+ext.libraryVersion = '0.1.0.1'
+ext.bintray_source_url = "https://github.com/halcyonmobiledev/retrofit-error-wrapping"
