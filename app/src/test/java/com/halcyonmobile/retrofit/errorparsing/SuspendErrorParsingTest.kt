@@ -4,10 +4,14 @@ import com.halcyonmobile.errorparsing.ErrorWrappingAndParserCallAdapterFactory
 import com.halcyonmobile.errorparsing.NetworkException
 import com.halcyonmobile.errorparsing.ParsedError
 import com.halcyonmobile.errorparsing.WrapIntoNetworkException
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.runBlocking
+import okhttp3.ResponseBody
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -117,6 +121,35 @@ class SuspendErrorParsingTest {
             assertTrue("The request didn't thrown an exception", false)
         }
 
+    @Test
+    fun GIVEN_request_annotated_with_wrap_into_network_WHEN_the_parsing_fails_THEN_the_exception_is_wrapped() =
+        runBlocking {
+            mockWebServer.enqueueRequest(200, "")
+
+            try {
+                service.modelParsing()
+            } catch (networkException: NetworkException) {
+                return@runBlocking
+            }
+
+            assertTrue("The request didn't thrown an exception", false)
+        }
+
+    @Test
+    fun GIVEN_request_annotated_with_wrap_into_network_and_returning_response_body_WHEN_the_request_fails_THEN_the_exception_is_wrapped() =
+        runBlocking {
+            mockWebServer.enqueueRequest(400, "")
+
+            try {
+                service.responseBody()
+            } catch (networkException: NetworkException) {
+                return@runBlocking
+            }
+
+            assertTrue("The request didn't thrown an exception", false)
+        }
+
+
     interface Service {
         @ParsedError(value = GeneralError::class)
         @GET("alma")
@@ -128,5 +161,16 @@ class SuspendErrorParsingTest {
 
         @GET("alma")
         suspend fun withoutAnnotation(): Unit?
+
+        @WrapIntoNetworkException
+        @GET("alma")
+        suspend fun modelParsing() : Model
+
+        @WrapIntoNetworkException
+        @GET("alma")
+        suspend fun responseBody() : ResponseBody
     }
+
+    @JsonClass(generateAdapter = true)
+    data class Model constructor(@field:Json(name = "alma") val foo: String)
 }
