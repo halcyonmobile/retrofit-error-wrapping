@@ -34,17 +34,7 @@ compileTestKotlin {
 }
 dependencies {
     implementation "androidx.annotation:annotation:1.1.0"
-    implementation "com.squareup.okio:okio:1.16.0"
-    def okHttpVersion = "3.12.0"
-    api  ("com.squareup.okhttp3:okhttp:$okHttpVersion") {
-        exclude module: 'okio'
-    }
-    def retrofitVersion = "2.6.0"
-    api ("com.squareup.retrofit2:retrofit:$retrofitVersion") {
-        exclude module: 'okhttp'
-    }
-    api project(":error-parsing-exceptions")
 }
 
-project.ext.set("libraryArtifactId", "retrofit-error-parsing")
+project.ext.set("libraryArtifactId", "retrofit-error-parsing-exceptions")
 apply plugin: 'com.halcyonmobile.plugin.publish.artifactory.jar-library'

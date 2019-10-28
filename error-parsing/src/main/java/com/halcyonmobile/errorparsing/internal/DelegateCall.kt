@@ -1,4 +1,4 @@
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing.internal
 
 import okhttp3.Request
 import retrofit2.Call

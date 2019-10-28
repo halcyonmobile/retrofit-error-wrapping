@@ -1,2 +1,2 @@
-include ':app', ':error-parsing'
+include ':app', ':error-parsing', ':error-parsing-exceptions'
 rootProject.name='retrofit-error-parsing'

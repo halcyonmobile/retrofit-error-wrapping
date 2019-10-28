@@ -1,5 +1,8 @@
 package com.halcyonmobile.errorparsing
 
+import com.halcyonmobile.errorparsing.internal.ErrorWrappingAndParsingCall
+import com.halcyonmobile.errorparsing.internal.NetworkExceptionToErrorResponseConverterAdapter
+import com.halcyonmobile.errorparsing.internal.ParsedErrorToErrorResponseConverterAdapter
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.CallAdapter
@@ -16,9 +19,19 @@ import java.lang.reflect.Type
  * For the parsing process the [Retrofit.converterFactories] are used.
  */
 class ErrorWrappingAndParserCallAdapterFactory(
-    private val networkExceptionConverter: NetworkExceptionConverter = DummyNetworkExceptionConverter(),
+    private val errorResponseToExceptionConverterFactory: ErrorResponseToExceptionConverter.Factory,
     private val workWithoutAnnotation: Boolean = false
 ) : CallAdapter.Factory() {
+
+    constructor(networkExceptionConverter: NetworkExceptionConverter = DummyNetworkExceptionConverter(), workWithoutAnnotation: Boolean = false) : this(
+        errorResponseToExceptionConverterFactory = NetworkExceptionToErrorResponseConverterAdapter.Factory(networkExceptionConverter),
+        workWithoutAnnotation = workWithoutAnnotation
+    )
+
+    constructor(parsedErrorToExceptionConverterFactory: ParsedErrorToExceptionConverter.Factory, workWithoutAnnotation: Boolean = false) : this(
+        errorResponseToExceptionConverterFactory = ParsedErrorToErrorResponseConverterAdapter.Factory(parsedErrorToExceptionConverterFactory),
+        workWithoutAnnotation = workWithoutAnnotation
+    )
 
     @Suppress("UNCHECKED_CAST")
     override fun get(
@@ -26,30 +39,28 @@ class ErrorWrappingAndParserCallAdapterFactory(
         annotations: Array<Annotation>,
         retrofit: Retrofit
     ): CallAdapter<*, *>? {
-        val converter = annotations
+        val errorClass = annotations
             .asSequence()
             .filterIsInstance<ParsedError>()
             .map(ParsedError::value)
             .map { it.java }
             .firstOrNull()
-            ?.let {
-                retrofit.responseBodyConverter<Any?>(it, annotations)
-            }
+        val converter = errorClass?.let { retrofit.responseBodyConverter<Any?>(it, annotations) }
+
         if (converter == null && annotations.none { it is WrapIntoNetworkException } && !workWithoutAnnotation) {
             return null
         }
 
         val rawType = getParameterUpperBound(0, returnType as ParameterizedType)
-        return Adapter<Any>(rawType, converter ?: NullConverter(), networkExceptionConverter)
+        return Adapter<Any>(rawType, errorResponseToExceptionConverterFactory.create(rawType, errorClass, converter ?: NullConverter()))
     }
 
     class Adapter<T>(
         private val rawType: Type,
-        private val converter: Converter<ResponseBody, Any?>,
-        private val networkExceptionConverter: NetworkExceptionConverter
+        private val errorResponseToExceptionConverter: ErrorResponseToExceptionConverter<T>
     ) : CallAdapter<T, Call<T>> {
 
-        override fun adapt(call: Call<T>): Call<T> = ErrorWrappingAndParsingCall(call, converter, networkExceptionConverter)
+        override fun adapt(call: Call<T>): Call<T> = ErrorWrappingAndParsingCall(call, errorResponseToExceptionConverter)
 
         override fun responseType(): Type = rawType
     }
@@ -57,7 +68,7 @@ class ErrorWrappingAndParserCallAdapterFactory(
     /**
      * Fake converter which always returns null.
      */
-    class NullConverter : Converter<ResponseBody, Any?>{
+    class NullConverter : Converter<ResponseBody, Any?> {
         override fun convert(value: ResponseBody): Any? = null
     }
 }

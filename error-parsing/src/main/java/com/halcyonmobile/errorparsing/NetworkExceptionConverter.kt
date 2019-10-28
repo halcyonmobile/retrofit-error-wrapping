@@ -1,13 +1,9 @@
 package com.halcyonmobile.errorparsing
 
 /**
- * Purpose
- * <p>
- * Description
- * <p/>
- * Notes:
- * @author (OPTIONAL! Use only if the code is complex, otherwise delete this line.)
+ * A simple converter which can be used to throw your own exception instead of [NetworkException]
  */
-interface NetworkExceptionConverter{
-    fun convert(networkException: NetworkException) : RuntimeException
+interface NetworkExceptionConverter {
+
+    fun convert(networkException: NetworkException): RuntimeException
 }
