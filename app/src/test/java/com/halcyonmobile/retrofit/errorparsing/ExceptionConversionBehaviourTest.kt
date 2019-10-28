@@ -53,10 +53,10 @@ class ExceptionConversionBehaviourTest {
             Assert.assertTrue("The request didn't thrown an exception", false)
         }
 
-    class CustomException: Throwable()
+    class CustomException: RuntimeException()
 
     class NetworkExceptionToCustomException : NetworkExceptionConverter{
-        override fun convert(networkException: NetworkException): Throwable = CustomException()
+        override fun convert(networkException: NetworkException): RuntimeException = CustomException()
     }
 
     interface Service {

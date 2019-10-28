@@ -9,5 +9,5 @@ package com.halcyonmobile.errorparsing
  * @author (OPTIONAL! Use only if the code is complex, otherwise delete this line.)
  */
 interface NetworkExceptionConverter{
-    fun convert(networkException: NetworkException) : Throwable
+    fun convert(networkException: NetworkException) : RuntimeException
 }

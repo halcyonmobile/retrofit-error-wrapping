@@ -1,5 +1,7 @@
 package com.halcyonmobile.errorparsing
 
+import java.lang.RuntimeException
+
 /**
  * Purpose
  * <p>
@@ -9,5 +11,5 @@ package com.halcyonmobile.errorparsing
  * @author (OPTIONAL! Use only if the code is complex, otherwise delete this line.)
  */
 class DummyNetworkExceptionConverter : NetworkExceptionConverter{
-    override fun convert(networkException: NetworkException): Throwable = networkException
+    override fun convert(networkException: NetworkException): RuntimeException = networkException
 }
