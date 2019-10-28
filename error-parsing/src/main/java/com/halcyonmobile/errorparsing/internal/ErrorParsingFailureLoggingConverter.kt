@@ -12,8 +12,8 @@ class ErrorParsingFailureLoggingConverter(
             return converter.convert(value)
         } catch (throwable: Throwable) {
             errorParsingFailureLogger.log(throwable)
+            throw throwable
         }
-        return null
     }
 
 }
