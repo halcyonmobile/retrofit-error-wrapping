@@ -1,8 +1,10 @@
 package com.halcyonmobile.errorparsing
 
+import com.halcyonmobile.errorparsing.internal.ErrorParsingFailureLoggingConverter
 import com.halcyonmobile.errorparsing.internal.ErrorWrappingAndParsingCall
 import com.halcyonmobile.errorparsing.internal.NetworkExceptionToErrorResponseConverterAdapter
 import com.halcyonmobile.errorparsing.internal.ParsedErrorToErrorResponseConverterAdapter
+import com.halcyonmobile.errorparsing.loggers.ErrorParsingFailureLogger
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.CallAdapter
@@ -20,17 +22,26 @@ import java.lang.reflect.Type
  */
 class ErrorWrappingAndParserCallAdapterFactory(
     private val errorResponseToExceptionConverterFactory: ErrorResponseToExceptionConverter.Factory,
-    private val workWithoutAnnotation: Boolean = false
+    private val workWithoutAnnotation: Boolean = false,
+    private val errorParsingFailureLogger: ErrorParsingFailureLogger? = null
 ) : CallAdapter.Factory() {
 
-    constructor(networkExceptionConverter: NetworkExceptionConverter = DummyNetworkExceptionConverter(), workWithoutAnnotation: Boolean = false) : this(
+    constructor(
+        networkExceptionConverter: NetworkExceptionConverter = DummyNetworkExceptionConverter(),
+        workWithoutAnnotation: Boolean = false,
+        errorParsingFailureLogger: ErrorParsingFailureLogger? = null) : this(
         errorResponseToExceptionConverterFactory = NetworkExceptionToErrorResponseConverterAdapter.Factory(networkExceptionConverter),
-        workWithoutAnnotation = workWithoutAnnotation
+        workWithoutAnnotation = workWithoutAnnotation,
+        errorParsingFailureLogger = errorParsingFailureLogger
     )
 
-    constructor(parsedErrorToExceptionConverterFactory: ParsedErrorToExceptionConverter.Factory, workWithoutAnnotation: Boolean = false) : this(
+    constructor(
+        parsedErrorToExceptionConverterFactory: ParsedErrorToExceptionConverter.Factory,
+        workWithoutAnnotation: Boolean = false,
+        errorParsingFailureLogger: ErrorParsingFailureLogger? = null) : this(
         errorResponseToExceptionConverterFactory = ParsedErrorToErrorResponseConverterAdapter.Factory(parsedErrorToExceptionConverterFactory),
-        workWithoutAnnotation = workWithoutAnnotation
+        workWithoutAnnotation = workWithoutAnnotation,
+        errorParsingFailureLogger = errorParsingFailureLogger
     )
 
     @Suppress("UNCHECKED_CAST")
@@ -51,8 +62,11 @@ class ErrorWrappingAndParserCallAdapterFactory(
             return null
         }
 
+        val nonNullConverter = converter ?: NullConverter()
+        val wrappedConverter = errorParsingFailureLogger?.let { ErrorParsingFailureLoggingConverter(it, nonNullConverter) } ?: nonNullConverter
+
         val rawType = getParameterUpperBound(0, returnType as ParameterizedType)
-        return Adapter<Any>(rawType, errorResponseToExceptionConverterFactory.create(rawType, errorClass, converter ?: NullConverter()))
+        return Adapter<Any>(rawType, errorResponseToExceptionConverterFactory.create(rawType, errorClass, wrappedConverter))
     }
 
     class Adapter<T>(
