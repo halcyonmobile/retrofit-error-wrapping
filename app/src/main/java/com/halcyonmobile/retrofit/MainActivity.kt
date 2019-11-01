@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val service = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
             .addCallAdapterFactory(ErrorWrappingAndParserCallAdapterFactory())
-            .baseUrl("https://www.google.com/")
+            .baseUrl("https://www.googlex.com/")
             .build()
             .create(Service::class.java)
 

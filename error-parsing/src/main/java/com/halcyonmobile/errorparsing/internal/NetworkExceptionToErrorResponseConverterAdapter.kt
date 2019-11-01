@@ -3,11 +3,13 @@ package com.halcyonmobile.errorparsing.internal
 import com.halcyonmobile.errorparsing.ErrorResponseToExceptionConverter
 import com.halcyonmobile.errorparsing.NetworkException
 import com.halcyonmobile.errorparsing.NetworkExceptionConverter
+import com.halcyonmobile.errorparsing.NoNetworkException
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.HttpException
 import retrofit2.Response
 import java.lang.reflect.Type
+import java.net.UnknownHostException
 
 /**
  * Adapter which adapts a [NetworkExceptionConverter] into an [ErrorResponseToExceptionConverter] so it can be used in [ErrorWrappingAndParsingCall]
@@ -28,8 +30,16 @@ internal class NetworkExceptionToErrorResponseConverterAdapter<T, Error>(
         return networkExceptionConverter.convert(networkException)
     }
 
+    //UnknownHostException
     override fun convert(throwable: Throwable): RuntimeException =
-        networkExceptionConverter.convert(throwable as? NetworkException ?: NetworkException(throwable = throwable, errorBody = null, parsedError = null))
+        networkExceptionConverter.convert(throwable.convertToNetworkException())
+
+    private fun Throwable.convertToNetworkException() : NetworkException=
+        when(this){
+            is NetworkException -> this
+            is UnknownHostException -> NoNetworkException(this)
+            else -> NetworkException(throwable = this, errorBody = null, parsedError = null)
+        }
 
     companion object {
         private fun ResponseBody?.getCopyAndString(): Pair<ResponseBody?, String?> {
