@@ -7,7 +7,7 @@ Most of our projects has a piece of code which wraps any exception thrown by ret
 
 ## Setup
 
-latest version is 0.1.0.1
+latest version is 0.1.0.3
 
 ### Add artifactory to your dependencies
  - in your top-level build.gradle add the following setup to access halcyon libraries :
@@ -117,3 +117,7 @@ Retrofit.Builder()
 ```
 
 Now you are free to use RxObservables while getting only NetworkExceptions in the onError.
+
+### I want to log the exceptions if the error couldn't be parsed
+
+For this you can implement the ErrorParsingFailureLogger and attach it to the CallAdapter
