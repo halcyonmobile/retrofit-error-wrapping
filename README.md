@@ -5,6 +5,34 @@
 The purpose of this library is to ease general exception handling caught from retrofit.
 Most of our projects has a piece of code which wraps any exception thrown by retrofit into a custom defined one, so why don't just have a lib which does this for us?
 
+### I only want to map my api response exceptions into a custom Exception, what should I do?
+
+In this case you may not need this library, which wraps all exceptions, such as network errors, parsing errors etc.
+
+For this you can implement an interceptor, here is an example how can you do that
+
+```kotlin
+class NetworkErrorInterceptor(private val parser: Parser) : Interceptor {
+
+    // not this is important because otherwise it might be wrapped into an UndeclaredThrowableException even with kotlin because of reflection proxy retrofit / okhttp uses
+    @Throws(IOException::class, NetworkError::class)
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val response = chain.proceed(chain.request()) // this may throw IOException
+        if (!response.isSuccessful) {
+            try {
+                val errorResponse = response.body?.source()?.let { errorResponseBody ->
+                    parser.parse(errorResponseBody)
+                }
+                throw NetworkError(errorResponse)
+            } catch (exception: IOException) {
+                throw NetworkError(exception.message.orEmpty())
+            }
+        }
+        return response
+    }
+}
+```
+
 ## Setup
 
 latest version is 0.1.0.3
