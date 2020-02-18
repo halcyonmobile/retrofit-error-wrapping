@@ -37,23 +37,7 @@ class NetworkErrorInterceptor(private val parser: Parser) : Interceptor {
 
 latest version is 1.0.0
 
-### Add artifactory to your dependencies
- - in your top-level build.gradle add the following setup to access halcyon libraries :
-```groovy
-allprojects {
-    repositories {
-        /*...*/
-        // For internal HalcyonMobile libraries
-        maven {
-            url "https://artifactory.build.halcyonmobile.com/artifactory/libs-release-local/"
-                credentials {
-                    username = "${artifactory_username}"
-                    password = "${artifactory_password}"
-                }
-        }
-    }
-}
-```
+### Add jcenter to your dependencies
 
 ### Add the dependency in your build.gradle
 
