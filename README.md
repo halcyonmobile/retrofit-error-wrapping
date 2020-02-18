@@ -35,7 +35,7 @@ class NetworkErrorInterceptor(private val parser: Parser) : Interceptor {
 
 ## Setup
 
-latest version is 0.1.0.3
+latest version is 1.0.0
 
 ### Add artifactory to your dependencies
  - in your top-level build.gradle add the following setup to access halcyon libraries :
