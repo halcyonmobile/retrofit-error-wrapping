@@ -1,6 +1,5 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
-apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
 
 dependencies {
@@ -46,4 +45,4 @@ dependencies {
 }
 
 project.ext.set("libraryArtifactId", "retrofit-error-parsing")
-apply plugin: 'com.halcyonmobile.plugin.publish.artifactory.jar-library'
+apply plugin: 'com.halcyonmobile.plugin.publish.custom.jar-library'
