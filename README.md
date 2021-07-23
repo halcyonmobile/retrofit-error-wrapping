@@ -3,6 +3,7 @@
 ## Purpose
 
 The purpose of this library is to ease general exception handling caught from retrofit.
+
 Most of our projects has a piece of code which wraps any exception thrown by retrofit into a custom defined one, so why don't just have a lib which does this for us?
 
 ### I only want to map my api response exceptions into a custom Exception, what should I do?
