@@ -38,7 +38,7 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:$okHttpVersion") {
         exclude module: 'okhttp'
     }
-    def retrofitVersion = "2.6.0"
+    def retrofitVersion = "2.9.0"
     api ("com.squareup.retrofit2:retrofit:$retrofitVersion") {
         exclude module: 'okhttp'
     }
