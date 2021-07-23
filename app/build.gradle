@@ -42,7 +42,7 @@ dependencies {
     api ("com.squareup.retrofit2:retrofit:$retrofitVersion") {
         exclude module: 'okhttp'
     }
-    api "com.squareup.moshi:moshi:1.8.0"
+    api "com.squareup.moshi:moshi:1.12.0"
     api("com.squareup.retrofit2:converter-moshi:$retrofitVersion") {
         exclude module: 'okhttp'
         exclude module: 'moshi'
