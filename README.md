@@ -42,8 +42,7 @@ class NetworkErrorInterceptor(private val parser: Parser) : Interceptor {
 
 ```gradle
 // top level build.gradle
-{
-  allprojects {
+allprojects {
     repositories {
         // ...
         maven {
