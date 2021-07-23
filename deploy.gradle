@@ -1,10 +1,8 @@
 // RELEASING
-// # 0:              update the libraryVersion
-// # 1:              open terminal and run the following commands
-// # 2 artifactory:  ./gradlew publishToArtifactory
-// # 2 bintray:      ./gradlew publishToBintray
-// # 3 bintray: make sure you add the published library to jcenter on the site
+// # 0:  update the libraryVersion
+// # 1:  open terminal and run the following command
+// # 2: ./gradlew howToPublish
 
 ext.libraryGroupId = 'retrofit-error-parsing'
-ext.libraryVersion = '1.0.0'
-ext.bintray_source_url = "https://github.com/halcyonmobile/retrofit-error-wrapping"
+ext.libraryVersion = '1.0.1'
+ext.githubPackagePath = 'halcyonmobile/retrofit-error-wrapping'
