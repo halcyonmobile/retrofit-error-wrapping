@@ -47,6 +47,11 @@ allprojects {
         // ...
         maven {
             url "https://maven.pkg.github.com/halcyonmobile/retrofit-error-wrapping"
+            credentials {
+                username = project.findProperty("GITHUB_USERNAME") ?: System.getenv("GITHUB_USERNAME")
+                password = project.findProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")
+            }
+            //https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
         }
     }
 }
