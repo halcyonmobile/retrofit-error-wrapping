@@ -20,7 +20,7 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.halcyonmobile.publish.custom:java-and-aar:2.0.1'
+        classpath 'com.halcyonmobile.publish.custom:java-and-aar:2.1.0'
     }
 }
 
