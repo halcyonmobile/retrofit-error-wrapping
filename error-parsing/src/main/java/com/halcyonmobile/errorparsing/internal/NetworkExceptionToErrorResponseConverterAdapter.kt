@@ -22,6 +22,7 @@ import com.halcyonmobile.errorparsing.NetworkException
 import com.halcyonmobile.errorparsing.NetworkExceptionConverter
 import com.halcyonmobile.errorparsing.NoNetworkException
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.asResponseBody
 import retrofit2.Converter
 import retrofit2.HttpException
 import retrofit2.Response
@@ -66,7 +67,7 @@ internal class NetworkExceptionToErrorResponseConverterAdapter<T, Error>(
             source.request(Long.MAX_VALUE)
             val buffer = source.buffer.clone()
 
-            return ResponseBody.create(contentType(), contentLength(), buffer) to string()
+            return buffer.asResponseBody(contentType(), contentLength()) to string()
         }
 
         private fun <Error> Converter<ResponseBody, Error?>.convertSafely(responseBody: ResponseBody): Any? =

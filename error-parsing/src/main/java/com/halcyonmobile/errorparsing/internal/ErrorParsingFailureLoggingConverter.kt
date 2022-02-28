@@ -23,7 +23,8 @@ import retrofit2.Converter
 
 class ErrorParsingFailureLoggingConverter(
     private val errorParsingFailureLogger: ErrorParsingFailureLogger,
-    private val converter: Converter<ResponseBody, Any?>): Converter<ResponseBody, Any?>{
+    private val converter: Converter<ResponseBody, Any?>
+) : Converter<ResponseBody, Any?> {
     override fun convert(value: ResponseBody): Any? {
         try {
             return converter.convert(value)

@@ -18,6 +18,7 @@
 package com.halcyonmobile.errorparsing.internal
 
 import okhttp3.Request
+import okio.Timeout
 import retrofit2.Call
 
 /**
@@ -32,4 +33,6 @@ abstract class DelegateCall<T>(private val call: Call<T>) : Call<T> {
     override fun cancel() = call.cancel()
 
     override fun request(): Request = call.request()
+
+    override fun timeout(): Timeout = call.timeout()
 }

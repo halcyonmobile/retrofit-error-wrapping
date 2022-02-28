@@ -5,8 +5,6 @@ import android.os.Bundle
 import com.halcyonmobile.errorparsing.ErrorWrappingAndParserCallAdapterFactory
 import com.halcyonmobile.errorparsing.NetworkException
 import com.halcyonmobile.errorparsing.WrapIntoNetworkException
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
