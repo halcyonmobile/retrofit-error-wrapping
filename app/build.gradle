@@ -26,27 +26,23 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
 
-    implementation "io.insert-koin:koin-androidx-viewmodel:2.2.3"
-    implementation "com.squareup.okio:okio:2.10.0"
-    def okHttpVersion = "4.9.3"
+    implementation "io.insert-koin:koin-androidx-viewmodel:$koinViewModelVersion"
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
-    testImplementation("com.squareup.okhttp3:mockwebserver:$okHttpVersion")
-    def retrofitVersion = "2.9.0"
+
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation "com.squareup.moshi:moshi:1.13.0"
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
-    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
-    kaptTest 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxJavaVersion"
 
     implementation project(":error-parsing")
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.skyscreamer:jsonassert:1.2.3"
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    kaptTest "com.squareup.moshi:moshi-kotlin-codegen:moshiVersion"
+    testImplementation("com.squareup.okhttp3:mockwebserver:$okHttpVersion")
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.skyscreamer:jsonassert:$jsonAssertVersion"
 }
