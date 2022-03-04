@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2
 
 /**
- * Annotation to mark [ErrorWrappingAndParserCallAdapterFactory] that the method should wrap its
- * errors into [NetworkException] while not parsing the errorBody into it.
+ * Exception representing when there is no internet connection and the request failed because of that.
+ *
+ * Note: this might be thrown even if the user has internet connection, but the device couldn't connect to the server via the url, meaning it couldn't find the server through DNS.
  */
-annotation class WrapIntoNetworkException
+class NoNetworkException(throwable: Throwable?) : NetworkException(throwable, null, null)

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2
 
 import retrofit2.Call
 import retrofit2.CallAdapter

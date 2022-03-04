@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing.internal
+package com.halcyonmobile.errorparsing2.internal
 
-import com.halcyonmobile.errorparsing.ErrorResponseToExceptionConverter
-import com.halcyonmobile.errorparsing.ParsedErrorToExceptionConverter
+import com.halcyonmobile.errorparsing2.ErrorResponseToExceptionConverter
+import com.halcyonmobile.errorparsing2.ParsedErrorToExceptionConverter
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Response

@@ -15,24 +15,23 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing.internal
+package com.halcyonmobile.errorparsing2.internal
 
-import okhttp3.Request
-import okio.Timeout
-import retrofit2.Call
+import com.halcyonmobile.errorparsing2.loggers.ErrorParsingFailureLogger
+import okhttp3.ResponseBody
+import retrofit2.Converter
 
-/**
- * Simple base class to simplify the implementation of a [Call] which wraps another [Call] object.
- */
-abstract class DelegateCall<T>(private val call: Call<T>) : Call<T> {
+class ErrorParsingFailureLoggingConverter(
+    private val errorParsingFailureLogger: ErrorParsingFailureLogger,
+    private val converter: Converter<ResponseBody, Any?>
+) : Converter<ResponseBody, Any?> {
+    override fun convert(value: ResponseBody): Any? {
+        try {
+            return converter.convert(value)
+        } catch (throwable: Throwable) {
+            errorParsingFailureLogger.log(throwable)
+            throw throwable
+        }
+    }
 
-    override fun isExecuted(): Boolean = call.isExecuted
-
-    override fun isCanceled(): Boolean = call.isCanceled
-
-    override fun cancel() = call.cancel()
-
-    override fun request(): Request = call.request()
-
-    override fun timeout(): Timeout = call.timeout()
 }

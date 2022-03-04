@@ -1,9 +1,8 @@
 package com.halcyonmobile.retrofit.errorparsing
 
-import com.halcyonmobile.errorparsing.*
+import com.halcyonmobile.errorparsing2.*
 import com.squareup.moshi.Moshi
 import io.reactivex.Observable
-import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Assert.assertEquals

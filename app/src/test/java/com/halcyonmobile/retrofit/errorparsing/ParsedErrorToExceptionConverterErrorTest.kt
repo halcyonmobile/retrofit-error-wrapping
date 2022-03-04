@@ -1,9 +1,9 @@
 package com.halcyonmobile.retrofit.errorparsing
 
-import com.halcyonmobile.errorparsing.ErrorWrappingAndParserCallAdapterFactory
-import com.halcyonmobile.errorparsing.ParsedError
-import com.halcyonmobile.errorparsing.ParsedErrorToExceptionConverter
-import com.halcyonmobile.errorparsing.add
+import com.halcyonmobile.errorparsing2.ErrorWrappingAndParserCallAdapterFactory
+import com.halcyonmobile.errorparsing2.ParsedError
+import com.halcyonmobile.errorparsing2.ParsedErrorToExceptionConverter
+import com.halcyonmobile.errorparsing2.add
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi

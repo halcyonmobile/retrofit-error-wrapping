@@ -15,23 +15,18 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing.internal
+package com.halcyonmobile.errorparsing2
 
-import com.halcyonmobile.errorparsing.loggers.ErrorParsingFailureLogger
-import okhttp3.ResponseBody
-import retrofit2.Converter
+import java.lang.RuntimeException
 
-class ErrorParsingFailureLoggingConverter(
-    private val errorParsingFailureLogger: ErrorParsingFailureLogger,
-    private val converter: Converter<ResponseBody, Any?>
-) : Converter<ResponseBody, Any?> {
-    override fun convert(value: ResponseBody): Any? {
-        try {
-            return converter.convert(value)
-        } catch (throwable: Throwable) {
-            errorParsingFailureLogger.log(throwable)
-            throw throwable
-        }
-    }
-
+/**
+ * Purpose
+ * <p>
+ * Description
+ * <p/>
+ * Notes:
+ * @author (OPTIONAL! Use only if the code is complex, otherwise delete this line.)
+ */
+class DummyNetworkExceptionConverter : NetworkExceptionConverter{
+    override fun convert(networkException: NetworkException): RuntimeException = networkException
 }

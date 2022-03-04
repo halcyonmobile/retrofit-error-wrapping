@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2
 
 /**
- * Exception representing when there is no internet connection and the request failed because of that.
- *
- * Note: this might be thrown even if the user has internet connection, but the device couldn't connect to the server via the url, meaning it couldn't find the server through DNS.
+ * General Network Exception, it contains the errorBody, if there were any in [errorBody] as string
+ * and a parsed errorBody in [parsedError] if it could be parsed.
  */
-class NoNetworkException(throwable: Throwable?) : NetworkException(throwable, null, null)
+open class NetworkException constructor(throwable: Throwable?, val parsedError: Any?, val errorBody: String?) : RuntimeException(throwable)

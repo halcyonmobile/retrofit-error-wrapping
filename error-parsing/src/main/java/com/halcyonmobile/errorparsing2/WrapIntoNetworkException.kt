@@ -15,12 +15,10 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2
 
 /**
- * A simple converter which can be used to throw your own exception instead of [NetworkException]
+ * Annotation to mark [ErrorWrappingAndParserCallAdapterFactory] that the method should wrap its
+ * errors into [NetworkException] while not parsing the errorBody into it.
  */
-interface NetworkExceptionConverter {
-
-    fun convert(networkException: NetworkException): RuntimeException
-}
+annotation class WrapIntoNetworkException

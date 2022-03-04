@@ -1,9 +1,9 @@
 package com.halcyonmobile.retrofit.errorparsing
 
-import com.halcyonmobile.errorparsing.ErrorWrappingAndParserCallAdapterFactory
-import com.halcyonmobile.errorparsing.NetworkException
-import com.halcyonmobile.errorparsing.ParsedError
-import com.halcyonmobile.errorparsing.WrapIntoNetworkException
+import com.halcyonmobile.errorparsing2.ErrorWrappingAndParserCallAdapterFactory
+import com.halcyonmobile.errorparsing2.NetworkException
+import com.halcyonmobile.errorparsing2.ParsedError
+import com.halcyonmobile.errorparsing2.WrapIntoNetworkException
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
@@ -11,7 +11,6 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before

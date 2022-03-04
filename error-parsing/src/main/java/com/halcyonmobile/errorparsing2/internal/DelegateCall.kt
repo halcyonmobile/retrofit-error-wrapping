@@ -15,12 +15,24 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2.internal
 
-import kotlin.reflect.KClass
+import okhttp3.Request
+import okio.Timeout
+import retrofit2.Call
 
 /**
- * Annotation to mark [ErrorWrappingAndParserCallAdapterFactory] that the method should wrap its
- * errors into [NetworkException] and parse the errorBody into it.
+ * Simple base class to simplify the implementation of a [Call] which wraps another [Call] object.
  */
-annotation class ParsedError(val value: KClass<*>)
+abstract class DelegateCall<T>(private val call: Call<T>) : Call<T> {
+
+    override fun isExecuted(): Boolean = call.isExecuted
+
+    override fun isCanceled(): Boolean = call.isCanceled
+
+    override fun cancel() = call.cancel()
+
+    override fun request(): Request = call.request()
+
+    override fun timeout(): Timeout = call.timeout()
+}
