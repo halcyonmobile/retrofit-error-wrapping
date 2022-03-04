@@ -15,12 +15,10 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
-
-import kotlin.reflect.KClass
+package com.halcyonmobile.errorparsing2
 
 /**
- * Annotation to mark [ErrorWrappingAndParserCallAdapterFactory] that the method should wrap it's
- * errors into [NetworkException] and parse the errorBody into it.
+ * General Network Exception, it contains the errorBody, if there were any in [errorBody] as string
+ * and a parsed errorBody in [parsedError] if it could be parsed.
  */
-annotation class ParsedError(val value: KClass<*>)
+open class NetworkException constructor(throwable: Throwable?, val parsedError: Any?, val errorBody: String?) : RuntimeException(throwable)

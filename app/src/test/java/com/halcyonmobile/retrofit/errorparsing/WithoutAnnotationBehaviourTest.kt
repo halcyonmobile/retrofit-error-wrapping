@@ -1,6 +1,6 @@
 package com.halcyonmobile.retrofit.errorparsing
 
-import com.halcyonmobile.errorparsing.*
+import com.halcyonmobile.errorparsing2.*
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
@@ -8,9 +8,6 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.skyscreamer.jsonassert.JSONAssert
-import org.skyscreamer.jsonassert.JSONCompareMode
-import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET

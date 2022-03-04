@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2
 
 import okhttp3.ResponseBody
 import retrofit2.Converter

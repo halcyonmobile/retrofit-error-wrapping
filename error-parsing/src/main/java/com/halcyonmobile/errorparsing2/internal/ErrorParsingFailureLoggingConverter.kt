@@ -15,15 +15,16 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing.internal
+package com.halcyonmobile.errorparsing2.internal
 
-import com.halcyonmobile.errorparsing.loggers.ErrorParsingFailureLogger
+import com.halcyonmobile.errorparsing2.loggers.ErrorParsingFailureLogger
 import okhttp3.ResponseBody
 import retrofit2.Converter
 
 class ErrorParsingFailureLoggingConverter(
     private val errorParsingFailureLogger: ErrorParsingFailureLogger,
-    private val converter: Converter<ResponseBody, Any?>): Converter<ResponseBody, Any?>{
+    private val converter: Converter<ResponseBody, Any?>
+) : Converter<ResponseBody, Any?> {
     override fun convert(value: ResponseBody): Any? {
         try {
             return converter.convert(value)

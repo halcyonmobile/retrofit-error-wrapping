@@ -15,18 +15,12 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2
 
-import java.lang.RuntimeException
+import kotlin.reflect.KClass
 
 /**
- * Purpose
- * <p>
- * Description
- * <p/>
- * Notes:
- * @author (OPTIONAL! Use only if the code is complex, otherwise delete this line.)
+ * Annotation to mark [ErrorWrappingAndParserCallAdapterFactory] that the method should wrap its
+ * errors into [NetworkException] and parse the errorBody into it.
  */
-class DummyNetworkExceptionConverter : NetworkExceptionConverter{
-    override fun convert(networkException: NetworkException): RuntimeException = networkException
-}
+annotation class ParsedError(val value: KClass<*>)

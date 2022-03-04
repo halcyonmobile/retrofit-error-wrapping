@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing.loggers
+package com.halcyonmobile.errorparsing2
 
 /**
- * Logger to log any exception while parsing an error model from errorBody.
+ * A simple converter which can be used to throw your own exception instead of [NetworkException]
  */
-interface ErrorParsingFailureLogger {
+interface NetworkExceptionConverter {
 
-    fun log(throwable: Throwable)
+    fun convert(networkException: NetworkException): RuntimeException
 }

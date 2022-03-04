@@ -15,10 +15,12 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2.loggers
 
 /**
- * General Network Exception, it't contains the errorBody, if there were any in [errorBody] as string
- * and a parsed errorBody in [parsedError] if it could be parsed.
+ * Logger to log any exception while parsing an error model from errorBody.
  */
-open class NetworkException constructor(throwable: Throwable?, val parsedError: Any?, val errorBody: String?) : RuntimeException(throwable)
+interface ErrorParsingFailureLogger {
+
+    fun log(throwable: Throwable)
+}

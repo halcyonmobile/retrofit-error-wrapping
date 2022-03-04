@@ -15,11 +15,18 @@
  * limitations under the License.
  */
 
-package com.halcyonmobile.errorparsing
+package com.halcyonmobile.errorparsing2
+
+import java.lang.RuntimeException
 
 /**
- * Exception representing when there is no internet connection and the request failed because of that.
- *
- * Note: this might be thrown even if the user has internet connection, but the device couldn't connect to the server via the url, meaning it couldn't find the server through DNS.
+ * Purpose
+ * <p>
+ * Description
+ * <p/>
+ * Notes:
+ * @author (OPTIONAL! Use only if the code is complex, otherwise delete this line.)
  */
-class NoNetworkException(throwable: Throwable?) : NetworkException(throwable, null, null)
+class DummyNetworkExceptionConverter : NetworkExceptionConverter{
+    override fun convert(networkException: NetworkException): RuntimeException = networkException
+}

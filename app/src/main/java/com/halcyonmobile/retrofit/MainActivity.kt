@@ -2,11 +2,9 @@ package com.halcyonmobile.retrofit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.halcyonmobile.errorparsing.ErrorWrappingAndParserCallAdapterFactory
-import com.halcyonmobile.errorparsing.NetworkException
-import com.halcyonmobile.errorparsing.WrapIntoNetworkException
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.halcyonmobile.errorparsing2.ErrorWrappingAndParserCallAdapterFactory
+import com.halcyonmobile.errorparsing2.NetworkException
+import com.halcyonmobile.errorparsing2.WrapIntoNetworkException
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
