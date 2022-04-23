@@ -81,6 +81,11 @@ class RxErrorParsingTest {
                     JSONCompareMode.LENIENT
                 )
                 assertTrue(networkException.cause is HttpException)
+                JSONAssert.assertEquals(
+                    readJsonResourceFileToString("simple_error.json"),
+                    (networkException.cause as HttpException).response()?.errorBody()?.string(),
+                    JSONCompareMode.LENIENT
+                )
                 return
             }
 
@@ -108,6 +113,11 @@ class RxErrorParsingTest {
                     JSONCompareMode.LENIENT
                 )
                 assertTrue(networkException.cause is HttpException)
+                JSONAssert.assertEquals(
+                    readJsonResourceFileToString("simple_error.json"),
+                    (networkException.cause as HttpException).response()?.errorBody()?.string(),
+                    JSONCompareMode.LENIENT
+                )
                 return
             }
 

@@ -79,6 +79,11 @@ class SuspendErrorParsingTest {
                     JSONCompareMode.LENIENT
                 )
                 assertTrue(networkException.cause is HttpException)
+                JSONAssert.assertEquals(
+                    readJsonResourceFileToString("simple_error.json"),
+                    (networkException.cause as HttpException).response()?.errorBody()?.string(),
+                    JSONCompareMode.LENIENT
+                )
                 return@runBlocking
             }
 
@@ -100,6 +105,11 @@ class SuspendErrorParsingTest {
                     JSONCompareMode.LENIENT
                 )
                 assertTrue(networkException.cause is HttpException)
+                JSONAssert.assertEquals(
+                    readJsonResourceFileToString("simple_error.json"),
+                    (networkException.cause as HttpException).response()?.errorBody()?.string(),
+                    JSONCompareMode.LENIENT
+                )
                 return@runBlocking
             }
 
