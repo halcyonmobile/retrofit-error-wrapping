@@ -67,7 +67,10 @@ internal class NetworkExceptionToErrorResponseConverterAdapter<T, Error>(
             source.request(Long.MAX_VALUE)
             val buffer = source.buffer.clone()
 
-            return buffer.asResponseBody(contentType(), contentLength()) to string()
+            val bufferForString = buffer.clone()
+            val clonedBodyForString = bufferForString.asResponseBody(contentType(), contentLength())
+
+            return buffer.asResponseBody(contentType(), contentLength()) to clonedBodyForString.string()
         }
 
         private fun <Error> Converter<ResponseBody, Error?>.convertSafely(responseBody: ResponseBody): Any? =

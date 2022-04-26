@@ -4,5 +4,5 @@
 // # 2: ./gradlew howToPublish
 
 ext.libraryGroupId = 'retrofit-error-parsing'
-ext.libraryVersion = '2.0.0'
+ext.libraryVersion = '2.0.1'
 ext.githubPackagePath = 'halcyonmobile/retrofit-error-wrapping'
