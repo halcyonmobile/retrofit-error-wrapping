@@ -39,7 +39,7 @@ task clean(type: Delete) {
 apply from: "./deploy.gradle"
 
 ext.annotationxVersion = "1.3.0"
-ext.okHttpVersion = "4.9.3"
+ext.okHttpVersion = "4.10.0"
 ext.retrofitVersion = "2.9.0"
 ext.junitVersion = "4.13.2"
 ext.jsonAssertVersion = "1.5.0"
